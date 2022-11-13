@@ -2,4 +2,4 @@
 
 
 >>Besh Radomyr Lab_1
-цуеецуецу уецуецуе1231
+>>Long numbers
