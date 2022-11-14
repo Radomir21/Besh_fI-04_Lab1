@@ -187,11 +187,11 @@ def long_power2(num, power):
     return result
 
 def tests(num1, num2, num3):
-        A_plus_B = long_add(num1, num2)
-        C_x_A_plus_B = long_mul(num3, A_plus_B)
-        A_plus_B_x_C = long_mul(A_plus_B, num3)
-        A_mul_C = long_mul(num1, num3)
-        B_mul_C = long_mul(num2, num3)
-        A_mul_C_plus_B_mul_C = long_add(A_mul_C, B_mul_C)
+    A_plus_B = long_add(num1, num2)
+    C_x_A_plus_B = long_mul(num3, A_plus_B)
+    A_plus_B_x_C = long_mul(A_plus_B, num3)
+    A_mul_C = long_mul(num1, num3)
+    B_mul_C = long_mul(num2, num3)
+    A_mul_C_plus_B_mul_C = long_add(A_mul_C, B_mul_C)
 
 
