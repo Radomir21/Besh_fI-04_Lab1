@@ -7,7 +7,7 @@ b = 2 ** w
 def convert_from_hex(number):
     if number == '0':
         return arr.array('I', [0])
-        
+
     number_int = int(number, 16)
     result = arr.array('I', [])
     while number_int > 0:
@@ -15,6 +15,7 @@ def convert_from_hex(number):
         number_int = number_int // b
     result.reverse()
     return result
+
 
 def convert_to_hex(number):
     if number == [0]:
@@ -26,6 +27,7 @@ def convert_to_hex(number):
         number_int += digit * (b ** index)
     n_hex = hex(number_int)
     return n_hex[2:]
+
 
 def make_equal_length(num1, num2):
     leading_zeros = abs(len(num1) - len(num2))
@@ -144,7 +146,7 @@ def convert_base_b_to_bin(num):
 def convert_bin_to_base_b(num):
     pad_leading_zeros(num)
     digits_bin = [''.join(map(str, num[i:i + w])) for i in
-                  range(0, len(num), w)]  #разделяем число на отрезки длинной w бит
+                  range(0, len(num), w)]  # разделяем число на отрезки длинной w бит
     result = arr.array('I', [int(digit, 2) for digit in digits_bin])  # конвертируем каждый отрезок в цифру 
     return result
 
@@ -186,7 +188,8 @@ def long_power2(num, power):
             result = long_mul(result, result)
     return result
 
-#def tests(num1, num2, num3):
+
+def tests(num1, num2, num3):
     A_plus_B = long_add(num1, num2)
     C_x_A_plus_B = long_mul(num3, A_plus_B)
     A_plus_B_x_C = long_mul(A_plus_B, num3)
@@ -215,7 +218,6 @@ if __name__ == '__main__':
     C_base_b = convert_from_hex(C)
     N_base_b = convert_from_hex(N)
 
-  
     A_plus_B = convert_to_hex(long_add(A_base_b, B_base_b))
     A_sub_B = convert_to_hex(long_sub(A_base_b, B_base_b))
     A_mul_B_base_b = long_mul(A_base_b, B_base_b)
@@ -226,80 +228,24 @@ if __name__ == '__main__':
     A_mul_B_div_B = convert_to_hex(Q)
     A_pow_N = convert_to_hex(long_power2(A_base_b, N_base_b))
 
-    #print("\nA+B=", A_plus_B)
-    #print("A+B=", A_plus_B_expected.lower())
-    #print("Correct:", A_plus_B_expected.lower() == A_plus_B)
+    print("\nA+B=", A_plus_B)
+    print("A+B=", A_plus_B_expected.lower())
+    print("Correct:", A_plus_B_expected.lower() == A_plus_B)
 
-    #print("\nA-B=", A_sub_B)
-    #print("A-B=", A_sub_B_expected.lower())
-    #print("Correct:", A_sub_B_expected.lower() == A_sub_B)
+    print("\nA-B=", A_sub_B)
+    print("A-B=", A_sub_B_expected.lower())
+    print("Correct:", A_sub_B_expected.lower() == A_sub_B)
 
-    #print("\nAxB=", A_mul_B)
-    #print("AxB=", A_mul_B_expected.lower())
-    #print("Correct:", A_mul_B_expected.lower() == A_mul_B)
+    print("\nAxB=", A_mul_B)
+    print("AxB=", A_mul_B_expected.lower())
+    print("Correct:", A_mul_B_expected.lower() == A_mul_B)
 
-    #print("\nA^2=", A_sqr)
+    print("\nA^2=", A_sqr)
 
-    #print("\n(AxB)/B=", A_mul_B_div_B)
-    #print("   A   =", A.lower())
-    #print("Correct:", A.lower() == A_mul_B_div_B)
+    print("\n(AxB)/B=", A_mul_B_div_B)
+    print("   A   =", A.lower())
+    print("Correct:", A.lower() == A_mul_B_div_B)
 
-    #print("\nA^N=", A_pow_N)
+    print("\nA^N=", A_pow_N)
 
-    #tests(A_base_b,B_base_b,C_base_b)
-
-
-
-print(convert_base_b_to_bin(A))
-#O=long_mul(A_base_b, B_base_b)
-#print(O)
-
-
-def conv_from_int(num, b):
-    number = arr.array('I', [])
-    while num > 0:
-        number.insert(0, num % b)  # take remainder of division and add it leftmost of the array
-        num = num // b
-    return number
-
-def miu(N): #miu = (b**2k)%N
-    cut_leading_zeros(N)
-    k = len(N)
-    b_arr = arr.array('I', [1, 0])
-    k_1 = conv_from_int(2*k, b)
-    b_1 = long_power2(b_arr, k_1)   #b**(2*k)
-    cut_leading_zeros(b_1)
-    return convert_bin_to_base_b(long_div_mod(b_1, N)[0])
-
-
-def remove_last_digits(X, l):
-    k = len(X)
-    X1 = X[:(k - l)]
-    return X1
-
-
-def barrett_reduction(X, N, M):  # r = XmodN, M=miu(N)
-    #    print("miu=", M)
-    cut_leading_zeros(X)
-    cut_leading_zeros(N)
-    k = len(N)
-    while len(X) != 2 * k:  # so that |N|=k, |X|=2k
-        X.insert(0, 0)
-    Q = remove_last_digits(X, k - 1)
-    Q = long_mul(Q, M)
-    Q = remove_last_digits(Q, k + 1)
-    t = long_mul(Q, N)
-    R = long_sub(X, t, b)
-    while make_equal_length(R, N) != -1:
-        R = long_sub(R, N, b)
-    return R
-
-
-
-print("A mod B =", convert_to_hex(barrett_reduction(A, B, miu(B))))
-
-
-
-
-
-
+    tests(A_base_b, B_base_b, C_base_b)
